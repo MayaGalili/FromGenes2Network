@@ -91,7 +91,7 @@ def plot_network(alignmnt_mat,name_lst):
 	plt.figure()
 	plt.title('Genes Alignment Network')
 	nx.draw_networkx(top_001_graph,font_size=6,node_size=30,labels=labeldict,with_labels = True,pos=nx.spring_layout(matrix_graph))
-	plt.savefig('Genes Alignment Network') # save as png
+	plt.savefig('Genes_Alignment_Network') # save as png
 	plt.show()	
 	
 def plot_corelation(df):
