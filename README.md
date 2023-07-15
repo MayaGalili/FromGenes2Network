@@ -6,9 +6,8 @@ A script that:
 
 How to run FromGenes2Network?
 *****************************
-1. make sure biopython module is installed
-2. make sure the sequence.gb file is in the same directory as FromGenes2Network.py
-3. run the script FromGenes2Network.py 
+1. make sure all needed package are installed
+2. run from the command line: ```python from_genes_to_network.py <path to the genebank input file>```
 
 Author:
 *******
