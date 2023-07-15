@@ -7,12 +7,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 import argparse
+import os
 
 
 class FromGenes2Networks:
 
-    def __init__(self, genebank_file_path):
+    def __init__(self, genebank_file_path, output_dir):
         self.genebank_path = genebank_file_path
+        self.output_dir = output_dir
 
     def run(self):
         """
@@ -92,8 +94,7 @@ class FromGenes2Networks:
 
         return alignment_mat
 
-    @staticmethod
-    def plot_network(alignment_mat, name_lst, percentile_threshold=99.9):
+    def plot_network(self, alignment_mat, name_lst, percentile_threshold=99.9):
         """
 
         :param alignment_mat:
@@ -122,7 +123,7 @@ class FromGenes2Networks:
         plt.title('Genes Alignment Network')
         nx.draw_networkx(top_001_graph, font_size=6, node_size=30, labels=label_dict, with_labels=True,
                          pos=nx.spring_layout(matrix_graph))
-        plt.savefig('GenesAlignmentNetwork')  # save as png
+        plt.savefig(os.path.join(self.output_dir, 'GenesAlignmentNetwork'))
         plt.show()
 
     @staticmethod
@@ -143,9 +144,10 @@ class FromGenes2Networks:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='for a given set of genes, plot a visual '
                                                  'network based on different features')
-    parser.add_argument('genebank_file_path', type=str, help=' a file with a set of genes in a GeneBank format')
+    parser.add_argument('genebank_file_path', type=str, help='a file with a set of genes in a GeneBank format (.gb)')
+    parser.add_argument('output_dir', type=str, help='a path to the output results directory')
 
     args = parser.parse_args()
 
-    instance = FromGenes2Networks(args.genebank_file_path)
+    instance = FromGenes2Networks(args.genebank_file_path, args.output_dir)
     instance.run()
