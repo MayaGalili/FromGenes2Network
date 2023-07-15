@@ -1,8 +1,3 @@
-"""
-Created on Friday Jun 23 17:03:46 2017
-
-@author: Maya Galili
-"""
 from Bio import SeqIO
 from Bio import pairwise2
 from Bio.SeqUtils import GC
@@ -46,10 +41,8 @@ class FromGenes2Networks:
         d = {'seq_sz_lst': seq_sz_lst, 'pageRank': pageRank, 'gc_lst': gc_lst}
         df = pd.DataFrame(data=d, index=list(range(0, lst_sz)))
 
-        # plot the alignment_mat in spring-embedded layout
         self.plot_network(alignment_mat, name_lst)
 
-        # plot the correlation graphs
         self.plot_correlation(df)
 
     def get_seq_data(self):
@@ -74,7 +67,6 @@ class FromGenes2Networks:
                         seq_sz_lst.append(len(str(tmp_seq)))
                         gc_lst.append(GC(tmp_seq))
         return seq_lst, name_lst, seq_sz_lst, gc_lst
-
 
     @staticmethod
     def get_alignment_mat(seq_lst):
@@ -132,7 +124,6 @@ class FromGenes2Networks:
                          pos=nx.spring_layout(matrix_graph))
         plt.savefig('GenesAlignmentNetwork')  # save as png
         plt.show()
-
 
     @staticmethod
     def plot_correlation(df):
