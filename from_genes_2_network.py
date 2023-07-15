@@ -11,21 +11,22 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import argparse
 
 
 class FromGenes2Networks:
-    """
-    1. pars CDSs sequences from gene bank data file
-    2. calculate alignment matrix
-    3. rank genes by PageRank, %GC and sequence length
-    4. plot the dilute matrix as network
-    5. plot correlation graphs for each pair of ranks
-    """
 
     def __init__(self, genebank_file_path):
         self.genebank_path = genebank_file_path
 
     def run(self):
+        """
+        1. pars CDSs sequences from gene bank data file
+        2. calculate alignment matrix
+        3. rank genes by PageRank, %GC and sequence length
+        4. plot the dilute matrix as network
+        5. plot correlation graphs for each pair of ranks
+        """
 
         # pars data
         (seq_lst, name_lst, seq_sz_lst, gc_lst) = self.get_seq_data()
@@ -146,3 +147,14 @@ class FromGenes2Networks:
         g.fig.suptitle('Correlation between PageRank & %GC distance')
         g = sns.jointplot(x="seq_sz_lst", y="gc_lst", kind="reg", data=df)
         g.fig.suptitle('Correlation between %GC distance & Sequence Size')
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='for a given set of genes, plot a visual '
+                                                 'network based on different features')
+    parser.add_argument('genebank_file_path', type=str, help=' a file with a set of genes in a GeneBank format')
+
+    args = parser.parse_args()
+
+    instance = FromGenes2Networks(args.genebank_file_path)
+    instance.run()
